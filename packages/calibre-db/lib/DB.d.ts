@@ -18,11 +18,11 @@ export declare class DB {
     db(): Database;
     name(): string;
     path(): string;
-    execute<T>(statement: Select): Promise<T[]>;
-    getBooks(book?: ILocator): Promise<IBook[]>;
-    getTags(tag?: ILocator): Promise<ITag[]>;
-    getSeries(series?: ILocator): Promise<ISeries[]>;
-    getAuthors(author?: ILocator): Promise<IAuthor[]>;
+    execute<T>(statement: Select): Bluebird<T[]>;
+    getBooks(book?: ILocator): Bluebird<IBook[]>;
+    getTags(tag?: ILocator): Bluebird<ITag[]>;
+    getSeries(series?: ILocator): Bluebird<ISeries[]>;
+    getAuthors(author?: ILocator): Bluebird<IAuthor[]>;
     endpoint<T>(endPoints: T): {
         name: string;
         type: "database";

@@ -17,7 +17,7 @@ export interface IBookBase {
     book_title: string;
     book_sort: string;
     book_has_cover: '1' | undefined;
-    book_pubdate: string;
+    book_date: string;
     /**
      * dirname
      */
@@ -69,4 +69,10 @@ export interface IAuthor extends IAuthorBase {
     authors_books_count: number;
     books: IBookBase[];
     series: ISeriesBase[];
+}
+export interface IFindLibrarys {
+    name: string;
+    _path: string;
+    _fullpath: string;
+    _fulldir: string;
 }

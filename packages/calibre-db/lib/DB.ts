@@ -71,7 +71,7 @@ export class DB
 		const self = this;
 		const { text, values } = statement.toParam();
 		this.log(statement.toString());
-		return new Promise<T[]>(function (resolve, reject)
+		return new Bluebird<T[]>(function (resolve, reject)
 		{
 			db.all(text, values, function (err, rows: T[])
 			{
@@ -105,6 +105,7 @@ export class DB
 			.from('books')
 			.group('book_title')
 			.where(where, value)
+			.order('book_id', false)
 		;
 
 		return this.execute<IBook>(statement).then(function (books)

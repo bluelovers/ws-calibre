@@ -5,6 +5,7 @@
 import FastGlob from '@bluelovers/fast-glob/bluebird';
 import { join, dirname, posix } from "upath2";
 import Bluebird from 'bluebird';
+import { IFindLibrarys } from './types';
 
 export function findLibrarys(options: {
 	cwd: string
@@ -21,10 +22,11 @@ export function findLibrarys(options: {
 			let _fullpath = join(cwd, _path);
 			let name = dirname(_path);
 
-			return {
+			return <IFindLibrarys>{
 				name,
 				_path,
 				_fullpath,
+				_fulldir: dirname(_fullpath),
 			}
 		})
 }

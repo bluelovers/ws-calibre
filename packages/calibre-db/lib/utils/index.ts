@@ -11,5 +11,10 @@ export function strip001(v: string)
 
 export function getFilePath(file: IBookFile , book: IBook)
 {
-	return [encodeURI(book.book_path), encodeURIComponent(strip001(file.data_name))].join('/') + fileext(file.data_format)
+	return [encodeURI(book.book_path), encodeURIComponent(strip001(file.data_name))].join('/') +'.' + fileext(file.data_format)
+}
+
+export function getCoverPath(book: IBook)
+{
+	return [encodeURI(book.book_path), 'cover.jpg'].join('/')
 }
