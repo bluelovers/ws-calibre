@@ -5,6 +5,7 @@
   "keywords": [
     "calibre",
     "server",
+    "serve",
     "opds",
     "epub",
     "feed",
@@ -23,6 +24,9 @@
   "author": "",
   "main": "index.js",
   "bin": {
+    "opds-server": "bin/calibre-server.js",
+    "opds-serve": "bin/calibre-server.js",
+    "calibre-serve": "bin/calibre-server.js",
     "calibre-server": "bin/calibre-server.js"
   },
   "directories": {
@@ -37,7 +41,7 @@
     "postpublish_": "git commit -m \"publish new version\" .",
     "prepublish:lockfile": "npx sync-lockfile .",
     "prepublishOnly_": "yarn run ncu && yarn run sort-package-json && yarn run test",
-    "sort-package-json": "npx sort-package-json ./package.json",
+    "sort-package-json": "npx yarn-tool sort",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
     "tsc:default": "tsc -p tsconfig.json",
