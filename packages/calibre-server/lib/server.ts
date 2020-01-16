@@ -45,6 +45,8 @@ export async function createServer(options: {
 
 	const pathWithPrefix = (a = '', ...input) => [pathPrefix, a, ...input].join('/');
 
+	console.info(`處理伺服器設定中`);
+
 	const app = express();
 
 	app.use(helmet());
@@ -86,7 +88,7 @@ export async function createServer(options: {
 				extensions: [EnumDataFormatLowerCase.EPUB],
 				index: false,
 			}));
-			console.debug(p, `=>`, row._fulldir);
+			console.debug(`[static]`, p, `=>`, row._fulldir);
 
 			a[id] = {
 				...row,
@@ -108,6 +110,13 @@ export async function createServer(options: {
 			return a;
 		}, {} as Record<string, IFindLibrarysServer>)
 	;
+
+	if (!Object.keys(dbList).length)
+	{
+		let err = `無法在目標路徑內找到任何 Calibre metadata.db 資料庫`;
+		console.error(err);
+		return Bluebird.reject(new Error(err));
+	}
 
 	app.use((req: Request, res: Response, next: NextFunction) => {
 		console.debug(...logRequest(req, res));
@@ -132,7 +141,7 @@ export async function createServer(options: {
 			port: number,
 		};
 
-		console.success(`listening on https://127.0.0.1:${address.port}${pathWithPrefix()}`);
+		console.success(`listening on http://127.0.0.1:${address.port}${pathWithPrefix()}`);
 	});
 
 	return _app

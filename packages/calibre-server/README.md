@@ -5,6 +5,6 @@
 ## install
 
 ```
-npx calibre-server "D:\\Program Files (Portable)\\Calibre Portable" -p 80
+npx calibre-server "D:\\Program Files (Portable)\\Calibre Portable"
 ```
 

@@ -8,6 +8,7 @@ const argv = yargs
 	.option('port', {
 		alias: ['p'],
 		number: true,
+		default: 2020,
 	})
 	.option('staticPath', {
 		normalize: true,
