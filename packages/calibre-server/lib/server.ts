@@ -18,6 +18,9 @@ import helmet from 'helmet';
 import staticExtra from './static';
 import { name as pkgName, version as pkgVersion } from '../package.json';
 import { parseFavicon, defaultFavicon } from './server/favicon';
+import { ip as IPAddress } from 'address';
+import { generate as qrcode } from 'qrcode-terminal';
+import { searchIPAddress } from './ip';
 
 export async function createServer(options: {
 	cwd: string,
@@ -118,7 +121,8 @@ export async function createServer(options: {
 		return Bluebird.reject(new Error(err));
 	}
 
-	app.use((req: Request, res: Response, next: NextFunction) => {
+	app.use((req: Request, res: Response, next: NextFunction) =>
+	{
 		console.debug(...logRequest(req, res));
 		return next();
 	});
@@ -141,7 +145,22 @@ export async function createServer(options: {
 			port: number,
 		};
 
-		console.success(`listening on http://127.0.0.1:${address.port}${pathWithPrefix()}`);
+		let ip: string = searchIPAddress();
+
+		let href = `http://${ip}:${address.port}${pathWithPrefix()}`;
+
+		qrcode(href, { small: true });
+
+		console.success(`伺服器成功啟動`);
+
+		console.success(href);
+
+		if (ip !== '127.0.0.1')
+		{
+			let ip = '127.0.0.1';
+			href = `http://${ip}:${address.port}${pathWithPrefix()}`;
+			console.success(href);
+		}
 	});
 
 	return _app
