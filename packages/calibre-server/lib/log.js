@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const debug_color2_1 = require("debug-color2");
+exports.console = new debug_color2_1.Console2(null, {
+    chalkOptions: {
+        enabled: true,
+    },
+    inspectOptions: {
+        colors: true,
+        depth: 5,
+    },
+    label: true,
+    time: true,
+});
+exports.consoleDebug = exports.console;
+exports.console.setOptions({
+    label: true,
+    enabled: true,
+});
+function logRequest(req, res) {
+    return [req.method, [req.baseUrl, req.url].join(''), req.query];
+}
+exports.logRequest = logRequest;
+exports.default = exports.console;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibG9nLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibG9nLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsK0NBQXdDO0FBRzNCLFFBQUEsT0FBTyxHQUFHLElBQUksdUJBQVEsQ0FBQyxJQUFJLEVBQUU7SUFDekMsWUFBWSxFQUFFO1FBQ2IsT0FBTyxFQUFFLElBQUk7S0FDYjtJQUNELGNBQWMsRUFBRTtRQUNmLE1BQU0sRUFBRSxJQUFJO1FBQ1osS0FBSyxFQUFFLENBQUM7S0FDUjtJQUNELEtBQUssRUFBRSxJQUFJO0lBQ1gsSUFBSSxFQUFFLElBQUk7Q0FDVixDQUFDLENBQUM7QUFRUyx1QkFsQkMsZUFBTyxDQWtCSTtBQU54QixlQUFPLENBQUMsVUFBVSxDQUFDO0lBQ2xCLEtBQUssRUFBRSxJQUFJO0lBQ1gsT0FBTyxFQUFFLElBQUk7Q0FDYixDQUFDLENBQUM7QUFNSCxTQUFnQixVQUFVLENBQUMsR0FBWSxFQUFFLEdBQWE7SUFFckQsT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLEVBQUUsQ0FBQyxHQUFHLENBQUMsT0FBTyxFQUFFLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLEVBQUUsR0FBRyxDQUFDLEtBQUssQ0FBQyxDQUFBO0FBQ2hFLENBQUM7QUFIRCxnQ0FHQztBQUVELGtCQUFlLGVBQU8sQ0FBQSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbnNvbGUyIH0gZnJvbSAnZGVidWctY29sb3IyJztcbmltcG9ydCBleHByZXNzLCB7IEV4cHJlc3MsIFJlcXVlc3QsIFJlc3BvbnNlLCBSb3V0ZXIgfSBmcm9tICdleHByZXNzJztcblxuZXhwb3J0IGNvbnN0IGNvbnNvbGUgPSBuZXcgQ29uc29sZTIobnVsbCwge1xuXHRjaGFsa09wdGlvbnM6IHtcblx0XHRlbmFibGVkOiB0cnVlLFxuXHR9LFxuXHRpbnNwZWN0T3B0aW9uczoge1xuXHRcdGNvbG9yczogdHJ1ZSxcblx0XHRkZXB0aDogNSxcblx0fSxcblx0bGFiZWw6IHRydWUsXG5cdHRpbWU6IHRydWUsXG59KTtcblxuY29uc29sZS5zZXRPcHRpb25zKHtcblx0bGFiZWw6IHRydWUsXG5cdGVuYWJsZWQ6IHRydWUsXG59KTtcblxuZXhwb3J0IHtcblx0Y29uc29sZSBhcyBjb25zb2xlRGVidWcsXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBsb2dSZXF1ZXN0KHJlcTogUmVxdWVzdCwgcmVzOiBSZXNwb25zZSlcbntcblx0cmV0dXJuIFtyZXEubWV0aG9kLCBbcmVxLmJhc2VVcmwsIHJlcS51cmxdLmpvaW4oJycpLCByZXEucXVlcnldXG59XG5cbmV4cG9ydCBkZWZhdWx0IGNvbnNvbGVcbiJdfQ==

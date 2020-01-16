@@ -26,12 +26,14 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "fs-extra": "^8.1.0",
-    "opds": "^2.0.0",
+    "bluebird": "^3.7.2",
     "opds-extra": "^3.0.5",
+    "ta-json-x": "^2.5.2",
     "ts-type": "^1.2.12"
   },
   "devDependencies": {
+    "fs-extra": "^8.1.0",
+    "@types/bluebird": "^3.5.29",
     "@types/fs-extra": "^8.0.1"
   }
 }
