@@ -20,7 +20,8 @@ import { name as pkgName, version as pkgVersion } from '../package.json';
 import { parseFavicon, defaultFavicon } from './server/favicon';
 import { ip as IPAddress } from 'address';
 import { generate as qrcode } from 'qrcode-terminal';
-import { searchIPAddress } from './ip';
+import searchIPAddress from 'address2';
+import { AddressInfo } from "net";
 
 export async function createServer(options: {
 	cwd: string,
@@ -139,11 +140,7 @@ export async function createServer(options: {
 
 	let _app = app.listen(port, function ()
 	{
-		let address = _app.address() as {
-			address: string,
-			family: string | 'IPv6',
-			port: number,
-		};
+		let address = _app.address() as AddressInfo;
 
 		let ip: string = searchIPAddress();
 

@@ -48,7 +48,7 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "address": "^1.1.2",
+    "address2": "^1.0.0",
     "array-hyper-unique": "^1.1.0",
     "bluebird": "^3.7.2",
     "calibre-db": "^1.0.1",
