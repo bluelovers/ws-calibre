@@ -2,10 +2,10 @@ import { ip as IPAddress } from 'address';
 import os, { NetworkInterfaceInfo } from "os";
 
 export function searchIPAddress(options: {
-	filterInterfacesNot: string | RegExp | ((interfaceName: string, interfaceData: NetworkInterfaceInfo[]) => boolean);
-	filterIP: string | RegExp | ((ip: string) => boolean);
-	defaultIP: string,
-} = {} as any)
+	filterInterfacesNot?: string | RegExp | ((interfaceName: string, interfaceData: NetworkInterfaceInfo[]) => boolean);
+	filterIP?: string | RegExp | ((ip: string) => boolean);
+	defaultIP?: string,
+} = {})
 {
 	let interfaces = os.networkInterfaces();
 

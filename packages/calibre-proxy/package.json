@@ -1,0 +1,49 @@
+{
+  "name": "calibre-proxy",
+  "version": "1.0.0",
+  "description": "replace calibre content-type atom+xml to xml",
+  "homepage": "https://github.com/bluelovers/ws-calibre/calibre-proxy#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/ws-calibre/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/ws-calibre.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "bin": {
+    "calibre-proxy": "bin/calibre-proxy.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "coverage": "npx nyc yarn run test",
+    "lint": "npx eslint **/*.ts",
+    "ncu": "npx yarn-tool ncu -u",
+    "npm:publish": "npm publish",
+    "postpublish_": "git commit -m \"publish new version\" .",
+    "prepublish:lockfile": "npx sync-lockfile .",
+    "prepublishOnly_": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "sort-package-json": "npx yarn-tool sort",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
+    "tsc:default": "tsc -p tsconfig.json",
+    "tsc:esm": "tsc -p tsconfig.esm.json"
+  },
+  "dependencies": {
+    "address2": "^1.0.0",
+    "debug-color2": "^1.1.6",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.0",
+    "qrcode-terminal": "^0.12.0",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/express-http-proxy": "^1.5.12",
+    "@types/yargs": "^15.0.0"
+  }
+}
