@@ -17,16 +17,26 @@ function createHandler(options: ISharedHandlerOptions)
 	{
 		let { dbID } = req.params;
 
-		console.dir({ dbID })
+
 
 		if (dbID && dbList[dbID])
 		{
+			console.dir({
+				dbID,
+				name: dbList[dbID].name,
+			});
+
 			res.setHeader('Content-Type', 'application/xml');
 			let feed = await buildOPDSID(options, { dbID });
 			res.send(feed.toXML());
 		}
 		else
 		{
+			if (dbID)
+			{
+				console.error(`dbID: ${dbID} 不存在`);
+			}
+
 			return next();
 		}
 	});
@@ -42,9 +52,6 @@ function createHandler(options: ISharedHandlerOptions)
 
 	router.use('*', (req: Request, res: Response, next: NextFunction) =>
 	{
-
-		console.dir(777);
-
 		return next();
 	});
 
