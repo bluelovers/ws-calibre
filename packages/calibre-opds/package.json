@@ -10,6 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/bluelovers/ws-calibre.git"
   },
+  "keywords": [
+    "calibre",
+    "opds",
+    "epub",
+    "feed",
+    "atom"
+  ],
   "license": "ISC",
   "author": "",
   "main": "lib/index.js",

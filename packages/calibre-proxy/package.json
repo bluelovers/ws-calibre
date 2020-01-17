@@ -6,6 +6,17 @@
   "bugs": {
     "url": "https://github.com/bluelovers/ws-calibre/issues"
   },
+  "keywords": [
+    "calibre",
+    "server",
+    "serve",
+    "opds",
+    "epub",
+    "feed",
+    "atom",
+    "proxy",
+    "service"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bluelovers/ws-calibre.git"

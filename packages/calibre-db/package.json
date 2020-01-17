@@ -5,6 +5,15 @@
   "license": "ISC",
   "author": "",
   "main": "index.js",
+  "keywords": [
+    "calibre",
+    "epub",
+    "library",
+    "metadata",
+    "database",
+    "db",
+    "sqlite"
+  ],
   "scripts": {
     "coverage": "npx nyc yarn run test",
     "lint": "npx eslint **/*.ts",
