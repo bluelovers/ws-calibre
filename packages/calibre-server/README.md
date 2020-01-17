@@ -8,8 +8,8 @@
 npx calibre-server "D:\\Program Files (Portable)\\Calibre Portable"
 ```
 
-![003.png](docs/003.png)
+![003.png](https://github.com/bluelovers/ws-calibre/raw/master/packages/calibre-server/docs/003.png)
 
-![001.jpg](docs/001.jpg)
+![001.jpg](https://github.com/bluelovers/ws-calibre/raw/master/packages/calibre-server/docs/001.jpg)
 
-![002.png](docs/002.png)
+![002.png](https://github.com/bluelovers/ws-calibre/raw/master/packages/calibre-server/docs/002.png)
