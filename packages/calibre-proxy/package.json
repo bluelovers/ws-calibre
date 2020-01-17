@@ -1,6 +1,6 @@
 {
   "name": "calibre-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "replace calibre content-type atom+xml to xml",
   "homepage": "https://github.com/bluelovers/ws-calibre/calibre-proxy#readme",
   "bugs": {
@@ -45,7 +45,7 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "address2": "^1.0.0",
+    "address2": "^1.0.1",
     "debug-color2": "^1.1.6",
     "express": "^4.17.1",
     "express-http-proxy": "^1.6.0",
