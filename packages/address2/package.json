@@ -1,0 +1,33 @@
+{
+  "name": "address2",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/bluelovers/ws-calibre/address2#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/ws-calibre/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/ws-calibre.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "coverage": "npx nyc yarn run test",
+    "lint": "npx eslint **/*.ts",
+    "ncu": "npx yarn-tool ncu -u",
+    "npm:publish": "npm publish",
+    "postpublish_": "git commit -m \"publish new version\" .",
+    "prepublish:lockfile": "npx sync-lockfile .",
+    "prepublishOnly_": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "sort-package-json": "npx yarn-tool sort",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
+    "tsc:default": "tsc -p tsconfig.json",
+    "tsc:esm": "tsc -p tsconfig.esm.json"
+  },
+  "dependencies": {
+    "address": "^1.1.2"
+  }
+}
