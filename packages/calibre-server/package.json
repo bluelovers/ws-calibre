@@ -1,6 +1,6 @@
 {
   "name": "calibre-server",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "create Calibre OPDS service for ePub reader",
   "keywords": [
     "calibre",
