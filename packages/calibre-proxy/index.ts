@@ -56,7 +56,7 @@ export function createServer(options: {
 
 		let ip: string = searchIPAddress();
 
-		let href = `http://${ip}:${address.port}`;
+		let href = `http://${ip}:${address.port}/opds`;
 
 		qrcode(href, { small: true });
 
@@ -66,7 +66,7 @@ export function createServer(options: {
 		if (ip !== '127.0.0.1')
 		{
 			let ip = '127.0.0.1';
-			href = `http://${ip}:${address.port}`;
+			href = `http://${ip}:${address.port}/opds`;
 			console.success(`將以 ${href} 代理 ${target}`);
 		}
 	});
