@@ -1,6 +1,6 @@
 {
   "name": "is-opds-agent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "check user-agent is opds reader",
   "homepage": "https://github.com/bluelovers/ws-calibre/tree/master/packages/is-opds-agent#readme",
   "bugs": {
@@ -46,10 +46,7 @@
     "@types/jest": "^24.9.1",
     "@types/node": "latest",
     "jest": "^25.1.0",
-    "ts-type": "^1.2.13",
-    "ts-jest": "^25.0.0"
-  },
-  "dependencies": {
-
+    "ts-jest": "^25.0.0",
+    "ts-type": "^1.2.13"
   }
 }
