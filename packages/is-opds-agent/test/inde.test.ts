@@ -53,6 +53,7 @@ Object.entries({
 		// @ts-ignore
 		expect(actual).toHasFlag(data.flags);
 		expect(hasFlag(actual, data.flags)).toBeTruthy();
+		expect(actual).toMatchSnapshot();
 	})
 
 });
