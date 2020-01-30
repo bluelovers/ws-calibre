@@ -103,7 +103,7 @@ export class DB
 			.commentTags()
 			.query()
 			.from('books')
-			.group('book_title')
+			//.group('book_title')
 			.where(where, value)
 			.order('book_id', false)
 		;
