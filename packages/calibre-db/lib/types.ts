@@ -44,6 +44,9 @@ export interface IBook extends Omit<IBookBase, 'book_has_cover' | 'book_id' | 'b
 	authors: IAuthorBase[];
 	series: ISeriesBase[];
 	data: IBookFile[];
+	book_uuid: string;
+	book_timestamp: string;
+	book_last_modified: string;
 }
 
 export interface IBookFile

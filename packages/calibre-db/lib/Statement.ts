@@ -47,6 +47,9 @@ export class Statement
 			.field('books.path', 'book_path')
 			.field('books.isbn', 'book_isbn')
 			.field('books.series_index', 'book_series_index')
+			.field('books.uuid', 'book_uuid')
+			.field('books.timestamp', 'book_timestamp')
+			.field('books.last_modified', 'book_last_modified')
 		return this;
 	}
 

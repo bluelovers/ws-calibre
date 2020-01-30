@@ -67,8 +67,10 @@ export function addBook(book: IBook, options: ISharedHandlerOptions, argv: {
 	return OPDSV1.Entry.deserialize<OPDSV1.Entry>({
 		title: book.book_title,
 		links,
-		updated: moment(book.book_date).format(),
+		published: moment(book.book_timestamp).format(),
+		updated: moment(book.book_last_modified).format(),
 		summary: book.comment,
+		identifier: book.book_uuid,
 		authors,
 	});
 }

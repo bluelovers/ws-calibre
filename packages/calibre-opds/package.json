@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "opds-extra": "^3.0.5",
+    "opds-extra": "^3.0.6",
     "ta-json-x": "^2.5.2",
-    "ts-type": "^1.2.12"
+    "ts-type": "^1.2.13"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",
