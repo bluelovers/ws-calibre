@@ -1,6 +1,6 @@
 {
   "name": "is-opds-agent",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "check user-agent is opds reader",
   "homepage": "https://github.com/bluelovers/ws-calibre/tree/master/packages/is-opds-agent#readme",
   "bugs": {
