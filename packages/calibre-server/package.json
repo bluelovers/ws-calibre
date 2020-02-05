@@ -1,6 +1,6 @@
 {
   "name": "calibre-server",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "create Calibre OPDS service for ePub reader",
   "keywords": [
     "calibre",
@@ -48,11 +48,11 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "address2": "^1.0.1",
+    "address2": "^1.0.3",
     "array-hyper-unique": "^1.1.0",
     "bluebird": "^3.7.2",
     "calibre-db": "^1.0.3",
-    "calibre-opds": "^1.0.4",
+    "calibre-opds": "^1.0.5",
     "debug-color2": "^1.1.7",
     "express": "^4.17.1",
     "express-cache-headers": "^0.1.4",
