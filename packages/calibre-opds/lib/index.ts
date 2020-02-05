@@ -15,6 +15,10 @@ export function buildAsync<T extends Feed>(feed: ITSResolvable<T>, fns: ((feed: 
 		.then((feed) => {
 			return Bluebird.resolve(fns)
 				.reduce((feed, fn) => {
+					if (fn == null)
+					{
+						return feed
+					}
 					return fn(feed)
 				}, feed)
 		})
@@ -25,6 +29,10 @@ export function buildSync<T extends Feed>(feed: T, fns: ((feed: T) => T)[])
 {
 	return fns
 		.reduce((feed, fn) => {
+			if (fn == null)
+			{
+				return feed
+			}
 			return fn(feed)
 		}, feed)
 		;
