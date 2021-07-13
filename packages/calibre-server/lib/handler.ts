@@ -49,10 +49,12 @@ export function createHandler(options: ITSRequiredPick<ISharedHandlerOptions, 'd
 	router.use('/opds(\.xml)?', opdsIndex);
 	router.use('/', opdsIndex);
 
+	/*
 	router.use('*', (req: Request, res: Response, next: NextFunction) =>
 	{
 		return next();
 	});
+	 */
 
 	return router
 }

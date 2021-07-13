@@ -34,9 +34,12 @@ function createHandler(options) {
     };
     router.use('/opds(\.xml)?', opdsIndex);
     router.use('/', opdsIndex);
-    router.use('*', (req, res, next) => {
+    /*
+    router.use('*', (req: Request, res: Response, next: NextFunction) =>
+    {
         return next();
     });
+     */
     return router;
 }
 exports.createHandler = createHandler;
