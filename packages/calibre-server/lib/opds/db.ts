@@ -8,9 +8,10 @@ import { IBook, EnumDataFormatLowerCase, getFilePath } from 'calibre-db';
 import fileext from 'calibre-db/lib/utils/fileext';
 import { getCoverPath } from 'calibre-db/lib/utils/index';
 import MIMETypes from 'mime-types';
-import { Entry } from 'opds-extra/lib/v1';
+import { Entry, Feed } from 'opds-extra/lib/v1';
+import { ITSRequiredPick } from 'ts-type/lib/type/record';
 
-export function addBook(book: IBook, options: ISharedHandlerOptions, argv: {
+export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOptions, 'pathWithPrefix'>, argv: {
 	dbID: string,
 })
 {
@@ -76,15 +77,15 @@ export function addBook(book: IBook, options: ISharedHandlerOptions, argv: {
 	});
 }
 
-export async function buildOPDSID(options: ISharedHandlerOptions, argv: {
+export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions, 'dbList' | 'pathWithPrefix'>, argv: {
 	dbID: string,
 })
 {
-	let { dbList } = options;
+	let { dbList, pathWithPrefix } = options;
 
 	let db = await dbList[argv.dbID].lazyload();
 
-	let feed = await buildAsync(initMain({
+	let feed = await buildAsync<Feed>(initMain({
 		title: `書庫：${dbList[argv.dbID].name}`,
 		subtitle: `書庫：${dbList[argv.dbID].name}`,
 		icon: '/favicon.ico',
@@ -106,7 +107,7 @@ export async function buildOPDSID(options: ISharedHandlerOptions, argv: {
 						title: `書庫：${row.name}`,
 						links: [
 							{
-								href: options.pathWithPrefix(row.id, 'opds'),
+								href: pathWithPrefix(row.id, 'opds'),
 								title: EnumLinkRel.ALTERNATE,
 								type: EnumMIME.OPDS_CATALOG_FEED_DOCUMENT,
 							} as Link

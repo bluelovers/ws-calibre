@@ -58,7 +58,7 @@ function addBook(book, options, argv) {
 }
 exports.addBook = addBook;
 async function buildOPDSID(options, argv) {
-    let { dbList } = options;
+    let { dbList, pathWithPrefix } = options;
     let db = await dbList[argv.dbID].lazyload();
     let feed = await (0, index_1.buildAsync)((0, index_1.default)({
         title: `書庫：${dbList[argv.dbID].name}`,
@@ -76,7 +76,7 @@ async function buildOPDSID(options, argv) {
                     title: `書庫：${row.name}`,
                     links: [
                         {
-                            href: options.pathWithPrefix(row.id, 'opds'),
+                            href: pathWithPrefix(row.id, 'opds'),
                             title: const_1.EnumLinkRel.ALTERNATE,
                             type: const_1.EnumMIME.OPDS_CATALOG_FEED_DOCUMENT,
                         }

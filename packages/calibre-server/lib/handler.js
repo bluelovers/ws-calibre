@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createHandler = void 0;
 const tslib_1 = require("tslib");
 const express_1 = require("express");
 const log_1 = require("./log");
@@ -38,5 +39,6 @@ function createHandler(options) {
     });
     return router;
 }
+exports.createHandler = createHandler;
 exports.default = createHandler;
 //# sourceMappingURL=handler.js.map

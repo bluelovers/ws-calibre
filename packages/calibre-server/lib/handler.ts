@@ -4,8 +4,9 @@ import { NextFunction } from 'express-serve-static-core';
 import { console } from './log';
 import buildOPDSIndex from './opds/index';
 import buildOPDSID from './opds/db';
+import { ITSRequiredPick } from 'ts-type/lib/type/record';
 
-function createHandler(options: ISharedHandlerOptions)
+export function createHandler(options: ITSRequiredPick<ISharedHandlerOptions, 'dbList' | 'pathWithPrefix' |'siteTitle'>)
 {
 	const { dbList } = options;
 
@@ -16,8 +17,6 @@ function createHandler(options: ISharedHandlerOptions)
 	router.use('/+:dbID', async (req, res, next) =>
 	{
 		let { dbID } = req.params;
-
-
 
 		if (dbID && dbList[dbID])
 		{

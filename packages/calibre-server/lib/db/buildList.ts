@@ -7,9 +7,9 @@ import { IServerOpotions } from '../server/options';
 import { IFindLibrarysServer, ISharedHandlerOptions } from '../types';
 import { hash_sha1 } from '../crypto';
 import loadLibrary from 'calibre-db/lib/loadLibrary';
-import { ITSRequiredPick } from 'ts-type/lib/type/record';
+import { ITSRequiredPick, ITSPickExtra } from 'ts-type/lib/type/record';
 
-export function findLibraryFromPaths(options: Pick<IServerOpotions, 'cwd' | 'calibrePaths' | 'dbFilter'>)
+export function findLibraryFromPaths(options: ITSPickExtra<IServerOpotions, 'cwd' | 'calibrePaths', 'dbFilter'>)
 {
 	return Bluebird
 		.resolve(array_unique(options.calibrePaths).map(v => resolve(options.cwd, v)))
@@ -32,7 +32,7 @@ export function findLibraryFromPaths(options: Pick<IServerOpotions, 'cwd' | 'cal
 	;
 }
 
-export function buildLibraryList(options: ITSRequiredPick<IServerOpotions, 'cwd' | 'calibrePaths' | 'dbFilter'>)
+export function buildLibraryList(options: ITSPickExtra<IServerOpotions, 'cwd' | 'calibrePaths', 'dbFilter'>)
 {
 	return findLibraryFromPaths(options)
 		.reduce(async (a, row) =>

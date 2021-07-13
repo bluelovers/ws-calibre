@@ -1,3 +1,4 @@
 import { ISharedHandlerOptions } from './types';
-declare function createHandler(options: ISharedHandlerOptions): import("express-serve-static-core").Router;
+import { ITSRequiredPick } from 'ts-type/lib/type/record';
+export declare function createHandler(options: ITSRequiredPick<ISharedHandlerOptions, 'dbList' | 'pathWithPrefix' | 'siteTitle'>): import("express-serve-static-core").Router;
 export default createHandler;
