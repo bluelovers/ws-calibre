@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.15](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.14...calibre-server@1.0.15) (2021-07-13)
+
+
+### 🔖　Miscellaneous
+
+* . ([7ecf639](https://github.com/bluelovers/ws-calibre/commit/7ecf63990761661903a7c594589822736861a6ad))
+
+
+
+
+
 ## [1.0.14](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.13...calibre-server@1.0.14) (2021-07-13)
 
 
