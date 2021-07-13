@@ -18,7 +18,7 @@ const argv = yargs
 	})
 	.help()
 	.showHelpOnFail(true)
-	.argv
+	.parseSync()
 ;
 
 createServer(argv);

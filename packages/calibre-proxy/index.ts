@@ -5,7 +5,7 @@ import { inspect } from 'util';
 import { Server } from 'http';
 import { AddressInfo } from "net";
 import searchIPAddress from 'address2';
-import { generate as qrcode } from 'qrcode-terminal';
+import qrcode from 'qrcode-terminal';
 
 export const console = new Console2(null, {
 	chalkOptions: {
@@ -58,7 +58,7 @@ export function createServer(options: {
 
 		let href = `http://${ip}:${address.port}/opds`;
 
-		qrcode(href, { small: true });
+		qrcode.generate(href, { small: true });
 
 		console.success(`伺服器成功啟動`);
 		console.success(`將以 ${href} 代理 ${target}`);

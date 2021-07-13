@@ -1,10 +1,9 @@
 import { ISharedHandlerOptions } from '../types';
-import { OPDSV1 } from 'opds-extra';
 import { IBook } from 'calibre-db';
 export declare function addBook(book: IBook, options: ISharedHandlerOptions, argv: {
     dbID: string;
-}): OPDSV1.Entry;
+}): any;
 export declare function buildOPDSID(options: ISharedHandlerOptions, argv: {
     dbID: string;
-}): Promise<OPDSV1.Feed>;
+}): Promise<import("opds-extra/lib/v1/core").Feed>;
 export default buildOPDSID;

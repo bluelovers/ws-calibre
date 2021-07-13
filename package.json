@@ -7,17 +7,24 @@
   ],
   "scripts": {
     "lerna:publish": "lerna publish",
-    "lerna:publish:yes": "lerna publish --yes --cd-version patch",
-    "ncu": "npx yarn-tool ncu -u",
-    "sort-package-json": "npx sort-package-json ./package.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lerna:publish:yes": "yarn run prepublish:lockfile && yarn run prepublishOnly:check-bin && npx lerna publish --yes --bump patch",
+    "prepublish:lockfile": "ynpx sync-lockfile",
+    "prepare:fix-ws-links": "ynpx @yarn-tool/fix-ws-links",
+    "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
+    "ncu": "yarn run ncu:root && yarn run ncu:ws",
+    "ncu:root": "npx yarn-tool ncu -u",
+    "ncu:ws": "npx yarn-tool ws exec yarn-tool ncu -- -u",
+    "sort-package-json": "yarn run sort-package-json:root && yarn run sort-package-json:ws",
+    "sort-package-json:root": "npx yarn-tool sort",
+    "sort-package-json:ws": "npx yarn-tool ws exec yarn-tool sort"
   },
+  "resolutions": {},
   "devDependencies": {
+    "@bluelovers/tsconfig": "^1.0.24",
     "@types/node": "*",
-    "@bluelovers/tsconfig": "^1.0.17"
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "lerna": "^3.20.2"
-  },
-  "resolutions": {}
+    "lerna": "^4.0.0"
+  }
 }

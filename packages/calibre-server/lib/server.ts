@@ -19,33 +19,19 @@ import staticExtra from './static';
 import { name as pkgName, version as pkgVersion } from '../package.json';
 import { parseFavicon, defaultFavicon } from './server/favicon';
 import { ip as IPAddress } from 'address';
-import { generate as qrcode } from 'qrcode-terminal';
+import qrcode from 'qrcode-terminal';
 import searchIPAddress from 'address2';
 import { AddressInfo } from "net";
+import { defaultServerOptions, IServerOpotions } from './server/options';
 
-export async function createServer(options: {
-	cwd: string,
-	port?: number,
-	pathPrefix?: string,
-	calibrePaths?: string[],
-	dbFilter?(row: {
-		name,
-		_path,
-		_fullpath,
-	}): ITSResolvable<boolean>,
-	siteTitle?: string,
-	favicon?: IFaviconData,
-	staticPath?: string,
-})
+export async function createServer(options: IServerOpotions)
 {
-	let { cwd, port = 3000, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${pkgName}@${pkgVersion}` } = options;
+	let { cwd, port, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${pkgName}@${pkgVersion}` } = options;
 
+	port ||= defaultServerOptions().port;
 	cwd = resolve(cwd);
 
-	if (calibrePaths == null)
-	{
-		calibrePaths = [cwd];
-	}
+	calibrePaths ??= [cwd];
 
 	const pathWithPrefix = (a = '', ...input) => [pathPrefix, a, ...input].join('/');
 
@@ -146,7 +132,7 @@ export async function createServer(options: {
 
 		let href = `http://${ip}:${address.port}${pathWithPrefix()}`;
 
-		qrcode(href, { small: true });
+		qrcode.generate(href, { small: true });
 
 		console.success(`伺服器成功啟動`);
 

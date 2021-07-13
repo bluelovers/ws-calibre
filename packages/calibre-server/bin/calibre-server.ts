@@ -3,12 +3,13 @@
 import yargs from 'yargs';
 import { resolve } from 'path';
 import createServer from '../lib/server';
+import { defaultServerOptions } from '../lib/server/options';
 
 const argv = yargs
 	.option('port', {
 		alias: ['p'],
 		number: true,
-		default: 2020,
+		default: defaultServerOptions().port,
 	})
 	.option('staticPath', {
 		normalize: true,
@@ -27,7 +28,7 @@ const argv = yargs
 	})
 	.help()
 	.showHelpOnFail(true)
-	.argv
+	.parseSync()
 ;
 
 let { cwd = argv._[0] as string } = argv;

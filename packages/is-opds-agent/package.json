@@ -2,14 +2,6 @@
   "name": "is-opds-agent",
   "version": "1.0.2",
   "description": "check user-agent is opds reader",
-  "homepage": "https://github.com/bluelovers/ws-calibre/tree/master/packages/is-opds-agent#readme",
-  "bugs": {
-    "url": "https://github.com/bluelovers/ws-calibre/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bluelovers/ws-calibre.git"
-  },
   "keywords": [
     "opds",
     "user-agent",
@@ -24,29 +16,30 @@
     "Aldiko",
     "reader"
   ],
+  "homepage": "https://github.com/bluelovers/ws-calibre/tree/master/packages/is-opds-agent#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/ws-calibre/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/ws-calibre.git"
+  },
   "license": "ISC",
   "author": "",
   "main": "index.js",
   "scripts": {
-    "coverage": "npx jest --coverage",
-    "lint": "npx eslint **/*.ts",
-    "ncu": "npx yarn-tool ncu -u",
-    "npm:publish": "npm publish",
-    "postpublish_": "git commit -m \"chore(release): publish\" .",
-    "prepublish:lockfile": "npx sync-lockfile .",
-    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
-    "sort-package-json": "npx yarn-tool sort",
-    "test": "jest --coverage",
-    "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
-    "tsc:default": "tsc -p tsconfig.json",
-    "tsc:esm": "tsc -p tsconfig.esm.json"
+    "test": "jest",
+    "preversion": "yarn run test"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@bluelovers/tsconfig": "latest",
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^26.0.24",
     "@types/node": "latest",
-    "jest": "^25.1.0",
-    "ts-jest": "^25.0.0",
-    "ts-type": "^1.2.13"
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
+    "ts-type": "^1.2.35"
   }
 }
