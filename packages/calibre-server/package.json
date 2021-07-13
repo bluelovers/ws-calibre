@@ -1,6 +1,6 @@
 {
   "name": "calibre-server",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "create Calibre OPDS service for ePub reader",
   "keywords": [
     "calibre",
@@ -39,11 +39,11 @@
     "preversion": "yarn run test"
   },
   "dependencies": {
-    "address2": "^1.0.3",
+    "address2": "^1.0.4",
     "array-hyper-unique": "^1.1.10",
     "bluebird": "^3.7.2",
-    "calibre-db": "^1.0.3",
-    "calibre-opds": "^1.0.5",
+    "calibre-db": "^1.0.4",
+    "calibre-opds": "^1.0.6",
     "debug-color2": "^1.2.5",
     "express": "^4.17.1",
     "express-cache-headers": "^0.1.4",

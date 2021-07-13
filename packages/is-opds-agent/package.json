@@ -1,6 +1,6 @@
 {
   "name": "is-opds-agent",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "check user-agent is opds reader",
   "keywords": [
     "opds",
