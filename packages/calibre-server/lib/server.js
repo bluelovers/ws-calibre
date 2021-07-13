@@ -16,12 +16,26 @@ const qrcode_terminal_1 = (0, tslib_1.__importDefault)(require("qrcode-terminal"
 const address2_1 = (0, tslib_1.__importDefault)(require("address2"));
 const options_1 = require("./server/options");
 const buildList_1 = require("./db/buildList");
+const calibre_env_1 = require("calibre-env");
+const path_1 = require("path");
 async function createServer(options) {
     var _a;
     let { cwd, port, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${package_json_1.name}@${package_json_1.version}` } = options;
     port || (port = (0, options_1.defaultServerOptions)().port);
     cwd = (0, upath2_1.resolve)(cwd);
-    calibrePaths !== null && calibrePaths !== void 0 ? calibrePaths : (calibrePaths = [(_a = (0, options_1.defaultServerOptions)().calibrePath) !== null && _a !== void 0 ? _a : cwd]);
+    if (!(calibrePaths === null || calibrePaths === void 0 ? void 0 : calibrePaths.length)) {
+        // @ts-ignore
+        calibrePaths = (_a = (0, calibre_env_1.envCalibrePath)(process.env)) !== null && _a !== void 0 ? _a : cwd;
+        if (typeof calibrePaths === 'string') {
+            // @ts-ignore
+            calibrePaths = calibrePaths.split(path_1.delimiter);
+        }
+        else {
+            // @ts-ignore
+            calibrePaths = [calibrePaths];
+        }
+        calibrePaths = calibrePaths.flat().filter(v => Boolean(v) && v !== 'undefined' && v !== 'null');
+    }
     const pathWithPrefix = (a = '', ...input) => [pathPrefix, a, ...input].join('/');
     log_1.console.info(`處理伺服器設定中`);
     const app = (0, express_1.default)();

@@ -24,6 +24,8 @@ import searchIPAddress from 'address2';
 import { AddressInfo } from "net";
 import { defaultServerOptions, IServerOpotions } from './server/options';
 import { buildLibraryList } from './db/buildList';
+import { envCalibrePath } from 'calibre-env';
+import { delimiter } from 'path';
 
 export async function createServer(options: IServerOpotions)
 {
@@ -32,7 +34,24 @@ export async function createServer(options: IServerOpotions)
 	port ||= defaultServerOptions().port;
 	cwd = resolve(cwd);
 
-	calibrePaths ??= [defaultServerOptions().calibrePath ?? cwd];
+	if (!calibrePaths?.length)
+	{
+		// @ts-ignore
+		calibrePaths = envCalibrePath(process.env) ?? cwd;
+
+		if (typeof calibrePaths === 'string')
+		{
+			// @ts-ignore
+			calibrePaths = calibrePaths.split(delimiter);
+		}
+		else
+		{
+			// @ts-ignore
+			calibrePaths = [calibrePaths];
+		}
+
+		calibrePaths = calibrePaths.flat().filter(v => Boolean(v) && v !== 'undefined' && v !== 'null');
+	}
 
 	const pathWithPrefix = (a = '', ...input) => [pathPrefix, a, ...input].join('/');
 
