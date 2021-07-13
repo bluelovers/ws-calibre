@@ -1,6 +1,6 @@
 {
   "name": "calibre-env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "homepage": "https://github.com/bluelovers/ws-calibre/tree/master/packages/calibre-env#readme",
   "bugs": {
@@ -27,7 +27,5 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
-  },
-  "devDependencies": {},
-  "peerDependencies": {}
+  }
 }

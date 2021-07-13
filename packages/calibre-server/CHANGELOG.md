@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.12...calibre-server@1.0.13) (2021-07-13)
+
+
+### ✨　Features
+
+* update type ([0118cc1](https://github.com/bluelovers/ws-calibre/commit/0118cc135d1d0b24121b05b8f778d8d3806fa019))
+
+
+### 📦　Code Refactoring
+
+* split buildLibraryList ([cccc892](https://github.com/bluelovers/ws-calibre/commit/cccc8920aabb788fd9dfcb22f159b2df8bc970e6))
+
+
+
+
+
 ## [1.0.12](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.11...calibre-server@1.0.12) (2021-07-13)
 
 
