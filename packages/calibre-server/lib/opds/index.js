@@ -4,11 +4,11 @@ exports.buildOPDSIndex = void 0;
 const tslib_1 = require("tslib");
 const index_1 = (0, tslib_1.__importStar)(require("calibre-opds/lib/index"));
 const const_1 = require("opds-extra/lib/const");
-const opds_extra_1 = require("opds-extra");
+const v1_1 = require("opds-extra/lib/v1");
 function buildOPDSIndex(options) {
-    let { dbList } = options;
+    let { dbList, pathWithPrefix, siteTitle } = options;
     let feed = (0, index_1.buildSync)((0, index_1.default)({
-        title: options.siteTitle,
+        title: siteTitle,
         subtitle: `Calibre 書庫`,
         icon: '/favicon.ico',
     }), [
@@ -16,11 +16,11 @@ function buildOPDSIndex(options) {
             feed.books = feed.books || [];
             Object.entries(dbList)
                 .forEach(([id, row]) => {
-                feed.books.push(opds_extra_1.OPDSV1.Entry.deserialize({
+                feed.books.push(v1_1.Entry.deserialize({
                     title: `書庫：${row.name}`,
                     links: [
                         {
-                            href: options.pathWithPrefix(row.id, 'opds'),
+                            href: pathWithPrefix(row.id, 'opds'),
                             title: const_1.EnumLinkRel.ALTERNATE,
                             type: const_1.EnumMIME.OPDS_CATALOG_FEED_DOCUMENT,
                         }

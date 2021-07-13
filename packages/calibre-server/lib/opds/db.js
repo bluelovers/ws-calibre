@@ -4,12 +4,12 @@ exports.buildOPDSID = exports.addBook = void 0;
 const tslib_1 = require("tslib");
 const index_1 = (0, tslib_1.__importStar)(require("calibre-opds/lib/index"));
 const const_1 = require("opds-extra/lib/const");
-const opds_extra_1 = require("opds-extra");
 const moment_1 = (0, tslib_1.__importDefault)(require("../moment"));
 const calibre_db_1 = require("calibre-db");
 const fileext_1 = (0, tslib_1.__importDefault)(require("calibre-db/lib/utils/fileext"));
 const index_2 = require("calibre-db/lib/utils/index");
 const mime_types_1 = (0, tslib_1.__importDefault)(require("mime-types"));
+const v1_1 = require("opds-extra/lib/v1");
 function addBook(book, options, argv) {
     let { pathWithPrefix } = options;
     let links = [];
@@ -46,7 +46,7 @@ function addBook(book, options, argv) {
         });
     }
     //console.dir(book)
-    return opds_extra_1.OPDSV1.Entry.deserialize({
+    return v1_1.Entry.deserialize({
         title: book.book_title,
         links,
         published: (0, moment_1.default)(book.book_timestamp).format(),
@@ -72,7 +72,7 @@ async function buildOPDSID(options, argv) {
                 if (argv.dbID == row.id) {
                     return;
                 }
-                feed.books.push(opds_extra_1.OPDSV1.Entry.deserialize({
+                feed.books.push(v1_1.Entry.deserialize({
                     title: `書庫：${row.name}`,
                     links: [
                         {

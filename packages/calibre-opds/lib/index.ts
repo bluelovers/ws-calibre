@@ -6,7 +6,7 @@ import Bluebird from 'bluebird';
 
 export function initMain(json: Feed.TSTYPE, options?: IParseOptions)
 {
-	return OPDSV1.Feed.deserialize(json, options);
+	return Feed.deserialize(json, options);
 }
 
 export function buildAsync<T extends Feed>(feed: ITSResolvable<T>, fns: ((feed: T) => ITSResolvable<T>)[])

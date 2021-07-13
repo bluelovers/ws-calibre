@@ -8,6 +8,7 @@ import { IBook, EnumDataFormatLowerCase, getFilePath } from 'calibre-db';
 import fileext from 'calibre-db/lib/utils/fileext';
 import { getCoverPath } from 'calibre-db/lib/utils/index';
 import MIMETypes from 'mime-types';
+import { Entry } from 'opds-extra/lib/v1';
 
 export function addBook(book: IBook, options: ISharedHandlerOptions, argv: {
 	dbID: string,
@@ -64,7 +65,7 @@ export function addBook(book: IBook, options: ISharedHandlerOptions, argv: {
 
 	//console.dir(book)
 
-	return OPDSV1.Entry.deserialize<OPDSV1.Entry>({
+	return Entry.deserialize<Entry>({
 		title: book.book_title,
 		links,
 		published: moment(book.book_timestamp).format(),
@@ -101,7 +102,7 @@ export async function buildOPDSID(options: ISharedHandlerOptions, argv: {
 						return;
 					}
 
-					feed.books.push(OPDSV1.Entry.deserialize<OPDSV1.Entry>({
+					feed.books.push(Entry.deserialize<Entry>({
 						title: `書庫：${row.name}`,
 						links: [
 							{

@@ -14,6 +14,7 @@ export interface IServerOpotions {
     favicon?: IFaviconData;
     staticPath?: string;
 }
-export declare function defaultServerOptions(): {
+export declare function defaultServerOptions(env?: Record<any, any>): {
     readonly port: 2020;
+    readonly calibrePath: string;
 };

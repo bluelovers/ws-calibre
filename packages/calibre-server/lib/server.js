@@ -5,11 +5,7 @@ const tslib_1 = require("tslib");
 const express_1 = (0, tslib_1.__importDefault)(require("express"));
 const serve_favicon_1 = (0, tslib_1.__importDefault)(require("serve-favicon"));
 const bluebird_1 = (0, tslib_1.__importDefault)(require("bluebird"));
-const array_hyper_unique_1 = require("array-hyper-unique");
-const findLibrarys_1 = (0, tslib_1.__importDefault)(require("calibre-db/lib/findLibrarys"));
 const upath2_1 = require("upath2");
-const crypto_1 = require("./crypto");
-const loadLibrary_1 = (0, tslib_1.__importDefault)(require("calibre-db/lib/loadLibrary"));
 const handler_1 = (0, tslib_1.__importDefault)(require("./handler"));
 const log_1 = require("./log");
 const helmet_1 = (0, tslib_1.__importDefault)(require("helmet"));
@@ -19,11 +15,13 @@ const favicon_1 = require("./server/favicon");
 const qrcode_terminal_1 = (0, tslib_1.__importDefault)(require("qrcode-terminal"));
 const address2_1 = (0, tslib_1.__importDefault)(require("address2"));
 const options_1 = require("./server/options");
+const buildList_1 = require("./db/buildList");
 async function createServer(options) {
+    var _a;
     let { cwd, port, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${package_json_1.name}@${package_json_1.version}` } = options;
     port || (port = (0, options_1.defaultServerOptions)().port);
     cwd = (0, upath2_1.resolve)(cwd);
-    calibrePaths !== null && calibrePaths !== void 0 ? calibrePaths : (calibrePaths = [cwd]);
+    calibrePaths !== null && calibrePaths !== void 0 ? calibrePaths : (calibrePaths = [(_a = (0, options_1.defaultServerOptions)().calibrePath) !== null && _a !== void 0 ? _a : cwd]);
     const pathWithPrefix = (a = '', ...input) => [pathPrefix, a, ...input].join('/');
     log_1.console.info(`處理伺服器設定中`);
     const app = (0, express_1.default)();
@@ -33,45 +31,25 @@ async function createServer(options) {
     app.set('trust proxy', 1);
     app.use((0, serve_favicon_1.default)((0, favicon_1.parseFavicon)(options.favicon) || (0, favicon_1.defaultFavicon)(staticPath, localStatic)));
     app.use('/static', express_1.default.static(staticPath));
-    let dbList = await bluebird_1.default
-        .resolve((0, array_hyper_unique_1.array_unique)(calibrePaths).map(v => (0, upath2_1.resolve)(cwd, v)))
-        .reduce(async (list, cwd) => {
-        let lp = (0, findLibrarys_1.default)({
-            cwd,
-        });
-        if (dbFilter) {
-            lp = lp.filter(dbFilter);
-        }
-        await lp.tap(ls => list.push(...ls));
-        return list;
-    }, [])
-        .reduce(async (a, row) => {
-        let id = (0, crypto_1.hash_sha1)(row._fullpath);
+    let dbList = await (0, buildList_1.buildLibraryList)({
+        calibrePaths,
+        dbFilter,
+        cwd,
+    });
+    if (!Object.keys(dbList).length) {
+        let err = `無法在目標路徑內找到任何 Calibre metadata.db 資料庫`;
+        log_1.console.error(err);
+        return bluebird_1.default.reject(new Error(err));
+    }
+    Object.entries(dbList)
+        .forEach(([id, row]) => {
         let p = pathWithPrefix(id);
         app.use(`${p}`, (0, static_1.default)(row._fulldir, {
             extensions: ["epub" /* EPUB */],
             index: false,
         }));
         log_1.console.debug(`[static]`, p, `=>`, row._fulldir);
-        a[id] = {
-            ...row,
-            id,
-            db: null,
-            lazyload() {
-                a[id].lazyload = () => bluebird_1.default.resolve(a[id].db);
-                return (0, loadLibrary_1.default)(row)
-                    .tap(db => {
-                    a[id].db = db;
-                });
-            },
-        };
-        return a;
-    }, {});
-    if (!Object.keys(dbList).length) {
-        let err = `無法在目標路徑內找到任何 Calibre metadata.db 資料庫`;
-        log_1.console.error(err);
-        return bluebird_1.default.reject(new Error(err));
-    }
+    });
     app.use((req, res, next) => {
         log_1.console.debug(...(0, log_1.logRequest)(req, res));
         return next();

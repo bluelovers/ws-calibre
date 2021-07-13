@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildSync = exports.buildAsync = exports.initMain = void 0;
 const tslib_1 = require("tslib");
-const opds_extra_1 = require("opds-extra");
+const v1_1 = require("opds-extra/lib/v1");
 const bluebird_1 = (0, tslib_1.__importDefault)(require("bluebird"));
 function initMain(json, options) {
-    return opds_extra_1.OPDSV1.Feed.deserialize(json, options);
+    return v1_1.Feed.deserialize(json, options);
 }
 exports.initMain = initMain;
 function buildAsync(feed, fns) {

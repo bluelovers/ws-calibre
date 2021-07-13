@@ -1,5 +1,6 @@
 import { ITSResolvable } from 'ts-type';
 import { IFaviconData } from '../types';
+import { envCalibrePath, ICalibreEnv } from 'calibre-env';
 
 export interface IServerOpotions
 {
@@ -19,9 +20,10 @@ export interface IServerOpotions
 	staticPath?: string;
 }
 
-export function defaultServerOptions()
+export function defaultServerOptions(env?: Record<any, any>)
 {
 	return {
 		port: 2020,
+		calibrePath: envCalibrePath(env),
 	} as const
 }

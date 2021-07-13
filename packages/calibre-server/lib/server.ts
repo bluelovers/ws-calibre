@@ -23,6 +23,7 @@ import qrcode from 'qrcode-terminal';
 import searchIPAddress from 'address2';
 import { AddressInfo } from "net";
 import { defaultServerOptions, IServerOpotions } from './server/options';
+import { buildLibraryList } from './db/buildList';
 
 export async function createServer(options: IServerOpotions)
 {
@@ -31,7 +32,7 @@ export async function createServer(options: IServerOpotions)
 	port ||= defaultServerOptions().port;
 	cwd = resolve(cwd);
 
-	calibrePaths ??= [cwd];
+	calibrePaths ??= [defaultServerOptions().calibrePath ?? cwd];
 
 	const pathWithPrefix = (a = '', ...input) => [pathPrefix, a, ...input].join('/');
 
@@ -49,57 +50,11 @@ export async function createServer(options: IServerOpotions)
 	app.use(favicon(parseFavicon(options.favicon) || defaultFavicon(staticPath, localStatic)));
 	app.use('/static', express.static(staticPath));
 
-	let dbList = await Bluebird
-		.resolve(array_unique(calibrePaths).map(v => resolve(cwd, v)))
-		.reduce(async (list, cwd) =>
-		{
-
-			let lp = findLibrarys({
-				cwd,
-			});
-
-			if (dbFilter)
-			{
-				lp = lp.filter(dbFilter)
-			}
-
-			await lp.tap(ls => list.push(...ls));
-
-			return list
-		}, [] as IFindLibrarys[])
-		.reduce(async (a, row) =>
-		{
-
-			let id = hash_sha1(row._fullpath);
-
-			let p = pathWithPrefix(id);
-
-			app.use(`${p}`, staticExtra(row._fulldir, {
-				extensions: [EnumDataFormatLowerCase.EPUB],
-				index: false,
-			}));
-			console.debug(`[static]`, p, `=>`, row._fulldir);
-
-			a[id] = {
-				...row,
-				id,
-				db: null,
-				lazyload()
-				{
-					a[id].lazyload = () => Bluebird.resolve(a[id].db);
-
-					return loadLibrary(row)
-						.tap(db =>
-						{
-							a[id].db = db;
-						})
-						;
-				},
-			};
-
-			return a;
-		}, {} as Record<string, IFindLibrarysServer>)
-	;
+	let dbList = await buildLibraryList({
+		calibrePaths,
+		dbFilter,
+		cwd,
+	});
 
 	if (!Object.keys(dbList).length)
 	{
@@ -107,6 +62,18 @@ export async function createServer(options: IServerOpotions)
 		console.error(err);
 		return Bluebird.reject(new Error(err));
 	}
+
+	Object.entries(dbList)
+		.forEach(([id, row]) => {
+			let p = pathWithPrefix(id);
+
+			app.use(`${p}`, staticExtra(row._fulldir, {
+				extensions: [EnumDataFormatLowerCase.EPUB],
+				index: false,
+			}));
+			console.debug(`[static]`, p, `=>`, row._fulldir);
+		})
+	;
 
 	app.use((req: Request, res: Response, next: NextFunction) =>
 	{
