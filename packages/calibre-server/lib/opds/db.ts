@@ -23,7 +23,7 @@ export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOpti
 
 		if (fileext(file.data_format) === EnumDataFormatLowerCase.EPUB)
 		{
-			let href = pathWithPrefix(argv.dbID, getFilePath(file, book));
+			let href = pathWithPrefix.call(book, argv.dbID, getFilePath(file, book));
 
 			links.push({
 				rel: EnumLinkRel.ACQUISITION,
@@ -47,7 +47,7 @@ export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOpti
 
 	if (book.book_has_cover)
 	{
-		let href = pathWithPrefix(argv.dbID, getCoverPath(book));
+		let href = pathWithPrefix.call(book, argv.dbID, getCoverPath(book));
 
 		let type = MIMETypes.lookup(href);
 

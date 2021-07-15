@@ -15,7 +15,7 @@ function addBook(book, options, argv) {
     let links = [];
     book.data.forEach(file => {
         if ((0, fileext_1.default)(file.data_format) === "epub" /* EPUB */) {
-            let href = pathWithPrefix(argv.dbID, (0, calibre_db_1.getFilePath)(file, book));
+            let href = pathWithPrefix.call(book, argv.dbID, (0, calibre_db_1.getFilePath)(file, book));
             links.push({
                 rel: const_1.EnumLinkRel.ACQUISITION,
                 href,
@@ -32,7 +32,7 @@ function addBook(book, options, argv) {
         }
     });
     if (book.book_has_cover) {
-        let href = pathWithPrefix(argv.dbID, (0, index_2.getCoverPath)(book));
+        let href = pathWithPrefix.call(book, argv.dbID, (0, index_2.getCoverPath)(book));
         let type = mime_types_1.default.lookup(href);
         links.push({
             rel: const_1.EnumLinkRel.IMAGE,
