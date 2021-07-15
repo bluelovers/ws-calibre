@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.16](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.15...calibre-server@1.0.16) (2021-07-15)
+
+
+### ✨　Features
+
+* support `this: IBook | void` for `pathWithPrefix` ([e4339e0](https://github.com/bluelovers/ws-calibre/commit/e4339e009aacd12e5712970565df3afe14b2e61c))
+
+
+
+
+
 ## [1.0.15](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.14...calibre-server@1.0.15) (2021-07-13)
 
 
