@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.19](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.18...calibre-server@1.0.19) (2021-07-18)
+
+
+### ✨　Features
+
+* allow some ways for update dbList after init ([5191b8f](https://github.com/bluelovers/ws-calibre/commit/5191b8f185ea8b80fdf94d642f93026e24f7c5ba))
+
+
+
+
+
 ## [1.0.18](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.17...calibre-server@1.0.18) (2021-07-18)
 
 **Note:** Version bump only for package calibre-server
