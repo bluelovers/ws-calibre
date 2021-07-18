@@ -6,7 +6,7 @@ const index_1 = (0, tslib_1.__importStar)(require("calibre-opds/lib/index"));
 const const_1 = require("opds-extra/lib/const");
 const v1_1 = require("opds-extra/lib/v1");
 function buildOPDSIndex(options) {
-    let { dbList, pathWithPrefix, siteTitle } = options;
+    let { pathWithPrefix, siteTitle } = options;
     let feed = (0, index_1.buildSync)((0, index_1.default)({
         title: siteTitle,
         subtitle: `Calibre 書庫`,
@@ -14,7 +14,7 @@ function buildOPDSIndex(options) {
     }), [
         (feed) => {
             feed.books = feed.books || [];
-            Object.entries(dbList)
+            Object.entries(options.dbList)
                 .forEach(([id, row]) => {
                 feed.books.push(v1_1.Entry.deserialize({
                     title: `書庫：${row.name}`,

@@ -83,13 +83,13 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 	dbID: string,
 })
 {
-	let { dbList, pathWithPrefix } = options;
+	let { pathWithPrefix } = options;
 
-	let db = await dbList[argv.dbID].lazyload();
+	let db = await options.dbList[argv.dbID].lazyload();
 
 	let feed = await buildAsync<Feed>(initMain({
-		title: `書庫：${dbList[argv.dbID].name}`,
-		subtitle: `書庫：${dbList[argv.dbID].name}`,
+		title: `書庫：${options.dbList[argv.dbID].name}`,
+		subtitle: `書庫：${options.dbList[argv.dbID].name}`,
 		icon: '/favicon.ico',
 	}), [
 
@@ -97,7 +97,7 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 		{
 			feed.books = feed.books || [];
 
-			Object.entries(dbList)
+			Object.entries(options.dbList)
 				.forEach(([id, row]) => {
 
 					if (argv.dbID == row.id)

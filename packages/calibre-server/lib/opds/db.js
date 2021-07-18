@@ -59,16 +59,16 @@ function addBook(book, options, argv) {
 }
 exports.addBook = addBook;
 async function buildOPDSID(options, argv) {
-    let { dbList, pathWithPrefix } = options;
-    let db = await dbList[argv.dbID].lazyload();
+    let { pathWithPrefix } = options;
+    let db = await options.dbList[argv.dbID].lazyload();
     let feed = await (0, index_1.buildAsync)((0, index_1.default)({
-        title: `書庫：${dbList[argv.dbID].name}`,
-        subtitle: `書庫：${dbList[argv.dbID].name}`,
+        title: `書庫：${options.dbList[argv.dbID].name}`,
+        subtitle: `書庫：${options.dbList[argv.dbID].name}`,
         icon: '/favicon.ico',
     }), [
         (feed) => {
             feed.books = feed.books || [];
-            Object.entries(dbList)
+            Object.entries(options.dbList)
                 .forEach(([id, row]) => {
                 if (argv.dbID == row.id) {
                     return;

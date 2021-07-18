@@ -8,7 +8,7 @@ import { ITSRequiredPick } from 'ts-type/lib/type/record';
 
 export function buildOPDSIndex(options: ITSRequiredPick<ISharedHandlerOptions, 'dbList'| 'pathWithPrefix' |'siteTitle'>)
 {
-	let { dbList, pathWithPrefix, siteTitle } = options;
+	let { pathWithPrefix, siteTitle } = options;
 
 	let feed = buildSync<Feed>(initMain({
 		title: siteTitle,
@@ -20,7 +20,7 @@ export function buildOPDSIndex(options: ITSRequiredPick<ISharedHandlerOptions, '
 		{
 			feed.books = feed.books || [] as null;
 
-			Object.entries(dbList)
+			Object.entries(options.dbList)
 				.forEach(([id, row]) => {
 
 					feed.books.push(Entry.deserialize<Entry>({

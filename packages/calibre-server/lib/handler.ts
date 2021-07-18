@@ -8,21 +8,19 @@ import { ITSRequiredPick } from 'ts-type/lib/type/record';
 
 export function createHandler(options: ITSRequiredPick<ISharedHandlerOptions, 'dbList' | 'pathWithPrefix' |'siteTitle'>)
 {
-	const { dbList } = options;
-
 	const router = Router();
 
-	console.dir(dbList);
+	console.dir(options.dbList);
 
 	router.use('/+:dbID', async (req, res, next) =>
 	{
 		let { dbID } = req.params;
 
-		if (dbID && dbList[dbID])
+		if (dbID && options.dbList[dbID])
 		{
 			console.dir({
 				dbID,
-				name: dbList[dbID].name,
+				name: options.dbList[dbID].name,
 			});
 
 			res.setHeader('Content-Type', 'application/xml');
