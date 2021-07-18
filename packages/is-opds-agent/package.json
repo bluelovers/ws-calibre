@@ -40,6 +40,6 @@
     "@types/node": "latest",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.3",
-    "ts-type": "^1.2.35"
+    "ts-type": "^1.2.36"
   }
 }

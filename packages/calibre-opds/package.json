@@ -30,7 +30,7 @@
     "bluebird": "^3.7.2",
     "opds-extra": "^3.0.9",
     "ta-json-x": "^2.5.3",
-    "ts-type": "^1.2.35",
+    "ts-type": "^1.2.36",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
