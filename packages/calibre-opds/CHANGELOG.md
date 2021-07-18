@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/bluelovers/ws-calibre/compare/calibre-opds@1.0.7...calibre-opds@1.0.8) (2021-07-18)
+
+
+### ♻️　Chores
+
+* **deps:** update deps ([0a6c75d](https://github.com/bluelovers/ws-calibre/commit/0a6c75ddc62ebde8e40c1b67ad722714b4edb66d))
+
+
+
+
+
 ## [1.0.7](https://github.com/bluelovers/ws-calibre/compare/calibre-opds@1.0.6...calibre-opds@1.0.7) (2021-07-13)
 
 

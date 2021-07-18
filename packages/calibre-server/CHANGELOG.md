@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.17](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.16...calibre-server@1.0.17) (2021-07-18)
+
+
+### ✨　Features
+
+* allow show comic book file , not only show converted .epub ([050ed21](https://github.com/bluelovers/ws-calibre/commit/050ed215bd0af07507e441084d560500f767a0dd))
+
+
+### ♻️　Chores
+
+* **deps:** update deps ([0a6c75d](https://github.com/bluelovers/ws-calibre/commit/0a6c75ddc62ebde8e40c1b67ad722714b4edb66d))
+
+
+
+
+
 ## [1.0.16](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.15...calibre-server@1.0.16) (2021-07-15)
 
 
