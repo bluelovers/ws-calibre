@@ -10,6 +10,8 @@ import { getCoverPath } from 'calibre-db/lib/utils/index';
 import MIMETypes from 'mime-types';
 import { Entry, Feed } from 'opds-extra/lib/v1';
 import { ITSRequiredPick } from 'ts-type/lib/type/record';
+import { isBookFile } from '../util/isBookFile';
+import { lookup } from 'mime-types';
 
 export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOptions, 'pathWithPrefix'>, argv: {
 	dbID: string,
@@ -21,14 +23,14 @@ export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOpti
 
 	book.data.forEach(file => {
 
-		if (fileext(file.data_format) === EnumDataFormatLowerCase.EPUB)
+		if (isBookFile(file.data_format))
 		{
 			let href = pathWithPrefix.call(book, argv.dbID, getFilePath(file, book));
 
 			links.push({
 				rel: EnumLinkRel.ACQUISITION,
 				href,
-				type: EnumMIME.epub,
+				type: lookup(`.${file.data_format}`) || EnumMIME.epub,
 			})
 		}
 

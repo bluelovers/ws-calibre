@@ -6,20 +6,21 @@ const index_1 = (0, tslib_1.__importStar)(require("calibre-opds/lib/index"));
 const const_1 = require("opds-extra/lib/const");
 const moment_1 = (0, tslib_1.__importDefault)(require("../moment"));
 const calibre_db_1 = require("calibre-db");
-const fileext_1 = (0, tslib_1.__importDefault)(require("calibre-db/lib/utils/fileext"));
 const index_2 = require("calibre-db/lib/utils/index");
 const mime_types_1 = (0, tslib_1.__importDefault)(require("mime-types"));
 const v1_1 = require("opds-extra/lib/v1");
+const isBookFile_1 = require("../util/isBookFile");
+const mime_types_2 = require("mime-types");
 function addBook(book, options, argv) {
     let { pathWithPrefix } = options;
     let links = [];
     book.data.forEach(file => {
-        if ((0, fileext_1.default)(file.data_format) === "epub" /* EPUB */) {
+        if ((0, isBookFile_1.isBookFile)(file.data_format)) {
             let href = pathWithPrefix.call(book, argv.dbID, (0, calibre_db_1.getFilePath)(file, book));
             links.push({
                 rel: const_1.EnumLinkRel.ACQUISITION,
                 href,
-                type: const_1.EnumMIME.epub,
+                type: (0, mime_types_2.lookup)(`.${file.data_format}`) || const_1.EnumMIME.epub,
             });
         }
     });

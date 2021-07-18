@@ -20,7 +20,7 @@ const calibre_env_1 = require("calibre-env");
 const path_1 = require("path");
 async function createServer(options) {
     var _a;
-    let { cwd, port, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${package_json_1.name}@${package_json_1.version}` } = options;
+    let { cwd, port, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${package_json_1.name}@${package_json_1.version}`, } = options;
     port || (port = (0, options_1.defaultServerOptions)().port);
     cwd = (0, upath2_1.resolve)(cwd);
     if (!(calibrePaths === null || calibrePaths === void 0 ? void 0 : calibrePaths.length)) {
@@ -59,7 +59,7 @@ async function createServer(options) {
         .forEach(([id, row]) => {
         let p = pathWithPrefix(id);
         app.use(`${p}`, (0, static_1.default)(row._fulldir, {
-            extensions: ["epub" /* EPUB */],
+            extensions: ["epub" /* EPUB */, 'cb7', 'cba', 'cbr', 'cbt', 'cbz'],
             index: false,
         }));
         log_1.console.debug(`[static]`, p, `=>`, row._fulldir);

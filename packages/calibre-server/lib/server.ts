@@ -29,7 +29,14 @@ import { delimiter } from 'path';
 
 export async function createServer(options: IServerOpotions)
 {
-	let { cwd, port, calibrePaths, pathPrefix = '', dbFilter, siteTitle = `Calibre 書庫 by ${pkgName}@${pkgVersion}` } = options;
+	let {
+		cwd,
+		port,
+		calibrePaths,
+		pathPrefix = '',
+		dbFilter,
+		siteTitle = `Calibre 書庫 by ${pkgName}@${pkgVersion}`,
+	} = options;
 
 	port ||= defaultServerOptions().port;
 	cwd = resolve(cwd);
@@ -83,11 +90,12 @@ export async function createServer(options: IServerOpotions)
 	}
 
 	Object.entries(dbList)
-		.forEach(([id, row]) => {
+		.forEach(([id, row]) =>
+		{
 			let p = pathWithPrefix(id);
 
 			app.use(`${p}`, staticExtra(row._fulldir, {
-				extensions: [EnumDataFormatLowerCase.EPUB],
+				extensions: [EnumDataFormatLowerCase.EPUB, 'cb7', 'cba', 'cbr', 'cbt', 'cbz'],
 				index: false,
 			}));
 			console.debug(`[static]`, p, `=>`, row._fulldir);
