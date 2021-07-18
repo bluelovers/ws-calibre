@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/bluelovers/ws-calibre/compare/calibre-db@1.0.6...calibre-db@1.0.7) (2021-07-18)
+
+
+### ✨　Features
+
+* add api for get one book only ([08eddf9](https://github.com/bluelovers/ws-calibre/commit/08eddf951ca228e03562a2a5c5146fe9d7b4092d))
+
+
+
+
+
 ## [1.0.6](https://github.com/bluelovers/ws-calibre/compare/calibre-db@1.0.5...calibre-db@1.0.6) (2021-07-18)
 
 
