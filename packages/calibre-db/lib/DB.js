@@ -46,27 +46,33 @@ class DB {
         return this._path;
     }
     execute(statement) {
-        const db = this._db;
-        const self = this;
-        const { text, values } = statement.toParam();
-        this.log(statement.toString());
-        return new bluebird_1.default(function (resolve, reject) {
-            db.all(text, values, function (err, rows) {
+        return new bluebird_1.default((resolve, reject) => {
+            const { text, values } = statement.toParam();
+            this.log(statement.toString());
+            this._db.all(text, values, (err, rows) => {
                 if (err) {
                     return reject(err);
                 }
                 if (!rows.length) {
-                    const err = new Error('no rows');
-                    self.error(err);
+                    const err = new Error(`no rows`);
+                    this.error(err);
                     return reject(err);
                 }
-                self.log(rows);
+                this.log(rows);
                 return resolve(rows);
             });
         });
     }
-    getBooks(book) {
-        const [where, value] = (0, makeWhere_1.default)('book', book, 'title', '_');
+    getBook(book, columnName) {
+        columnName !== null && columnName !== void 0 ? columnName : (columnName = 'book_id');
+        if (!['book_id', 'book_uuid'].includes(columnName)) {
+            return bluebird_1.default.reject(new RangeError(`Invalid columnName for book: '${columnName}'`));
+        }
+        return this.getBooks(book, columnName)
+            .then(r => r[0]);
+    }
+    getBooks(book, columnName) {
+        const [where, value] = (0, makeWhere_1.default)('book', book, columnName !== null && columnName !== void 0 ? columnName : 'title', '_');
         const statement = new Statement_1.Statement()
             .bookFields()
             .sumAuthor()

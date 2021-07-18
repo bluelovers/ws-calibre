@@ -1,12 +1,9 @@
-/**
- * Created by user on 2020/1/14.
- */
 
 export type ILocator = string | '*' | '' | '/';
 
-export function makeWhere(tableName: string, locator: ILocator, columnName = 'name', sep = '.')
+export function makeWhere<T extends Record<string, any>>(tableName: string, locator: ILocator, columnName: keyof T = 'name', sep = '.')
 {
-	const getAll = (locator == null || locator == '*' || locator == '' || locator == '/');
+	const getAll = (locator == null || locator === '*' || locator === '' || locator === '/');
 	const isNumber = /\d+/.test(locator + '');
 	const isString = !isNumber;
 	const whereStatement = getAll ?
@@ -16,7 +13,7 @@ export function makeWhere(tableName: string, locator: ILocator, columnName = 'na
 			`${tableName}${sep}id = ?`
 	;
 	const value = getAll ? '%' : isString ? `%${locator}%` : locator;
-	return [whereStatement, value];
+	return [whereStatement, value] as const;
 }
 
 export default makeWhere

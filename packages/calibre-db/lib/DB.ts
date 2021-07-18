@@ -67,32 +67,45 @@ export class DB
 
 	execute<T>(statement: Select)
 	{
-		const db = this._db;
-		const self = this;
-		const { text, values } = statement.toParam();
-		this.log(statement.toString());
-		return new Bluebird<T[]>(function (resolve, reject)
+		return new Bluebird<T[]>((resolve, reject) =>
 		{
-			db.all(text, values, function (err, rows: T[])
+			const { text, values } = statement.toParam();
+			this.log(statement.toString());
+
+			this._db.all(text, values, (err, rows: T[]) =>
 			{
 				if (err)
-				{return reject(err);}
-				if (!rows.length)
 				{
-					const err = new Error('no rows');
-					self.error(err);
 					return reject(err);
 				}
-				self.log(rows);
+				if (!rows.length)
+				{
+					const err = new Error(`no rows`);
+					this.error(err);
+					return reject(err);
+				}
+				this.log(rows);
 				return resolve(rows);
 			});
-
 		})
 	}
 
-	getBooks(book?: ILocator)
+	getBook(book: ILocator | number, columnName?: 'book_id' | 'book_uuid')
 	{
-		const [where, value] = makeWhere('book', book, 'title', '_');
+		columnName ??= 'book_id';
+
+		if (!['book_id', 'book_uuid'].includes(columnName))
+		{
+			return Bluebird.reject(new RangeError(`Invalid columnName for book: '${columnName}'`))
+		}
+
+		return this.getBooks(book, columnName)
+			.then(r => r[0])
+	}
+
+	getBooks(book?: ILocator | number, columnName?: keyof IBook)
+	{
+		const [where, value] = makeWhere('book', book as any, columnName ?? 'title', '_');
 		const statement = new Statement()
 			.bookFields()
 			.sumAuthor()

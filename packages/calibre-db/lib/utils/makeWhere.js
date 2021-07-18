@@ -1,11 +1,8 @@
 "use strict";
-/**
- * Created by user on 2020/1/14.
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeWhere = void 0;
 function makeWhere(tableName, locator, columnName = 'name', sep = '.') {
-    const getAll = (locator == null || locator == '*' || locator == '' || locator == '/');
+    const getAll = (locator == null || locator === '*' || locator === '' || locator === '/');
     const isNumber = /\d+/.test(locator + '');
     const isString = !isNumber;
     const whereStatement = getAll ?

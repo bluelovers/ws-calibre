@@ -19,7 +19,8 @@ export declare class DB {
     name(): string;
     path(): string;
     execute<T>(statement: Select): Bluebird<T[]>;
-    getBooks(book?: ILocator): Bluebird<IBook[]>;
+    getBook(book: ILocator | number, columnName?: 'book_id' | 'book_uuid'): Bluebird<IBook>;
+    getBooks(book?: ILocator | number, columnName?: keyof IBook): Bluebird<IBook[]>;
     getTags(tag?: ILocator): Bluebird<ITag[]>;
     getSeries(series?: ILocator): Bluebird<ISeries[]>;
     getAuthors(author?: ILocator): Bluebird<IAuthor[]>;
