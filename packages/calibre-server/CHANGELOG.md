@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.20](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.19...calibre-server@1.0.20) (2021-07-22)
+
+
+### ✨　Features
+
+* auto set feed updated date ([b335eac](https://github.com/bluelovers/ws-calibre/commit/b335eac48a688e7c3a74f69845cf4cf4d0580f7d))
+
+
+
+
+
 ## [1.0.19](https://github.com/bluelovers/ws-calibre/compare/calibre-server@1.0.18...calibre-server@1.0.19) (2021-07-18)
 
 
