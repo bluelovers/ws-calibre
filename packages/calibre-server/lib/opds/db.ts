@@ -17,15 +17,13 @@ export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOpti
 	dbID: string,
 })
 {
-	let { pathWithPrefix } = options;
-
 	let links = [];
 
 	book.data.forEach(file => {
 
 		if (isBookFile(file.data_format))
 		{
-			let href = pathWithPrefix.call(book, argv.dbID, getFilePath(file, book));
+			let href = options.pathWithPrefix.call(book, argv.dbID, getFilePath(file, book));
 
 			links.push({
 				rel: EnumLinkRel.ACQUISITION,
@@ -49,7 +47,7 @@ export function addBook(book: IBook, options: ITSRequiredPick<ISharedHandlerOpti
 
 	if (book.book_has_cover)
 	{
-		let href = pathWithPrefix.call(book, argv.dbID, getCoverPath(book));
+		let href = options.pathWithPrefix.call(book, argv.dbID, getCoverPath(book));
 
 		let type = MIMETypes.lookup(href);
 
@@ -83,11 +81,9 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 	dbID: string,
 })
 {
-	let { pathWithPrefix } = options;
+	let last_updated: number;
 
-	let db = await options.dbList[argv.dbID].lazyload();
-
-	let feed = await buildAsync<Feed>(initMain({
+	return buildAsync<Feed>(initMain({
 		title: `書庫：${options.dbList[argv.dbID].name}`,
 		subtitle: `書庫：${options.dbList[argv.dbID].name}`,
 		icon: '/favicon.ico',
@@ -95,7 +91,7 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 
 		(feed) =>
 		{
-			feed.books = feed.books || [];
+			feed.books ||= [];
 
 			Object.entries(options.dbList)
 				.forEach(([id, row]) => {
@@ -109,7 +105,7 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 						title: `書庫：${row.name}`,
 						links: [
 							{
-								href: pathWithPrefix(row.id, 'opds'),
+								href: options.pathWithPrefix.call(void 0, row.id, 'opds'),
 								title: EnumLinkRel.ALTERNATE,
 								type: EnumMIME.OPDS_CATALOG_FEED_DOCUMENT,
 							} as Link
@@ -124,10 +120,33 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 
 		async (feed) =>
 		{
-			feed.books = feed.books || [];
+			feed.books ||= [];
+
+			let db = await options.dbList[argv.dbID].lazyload();
 
 			let ls = await db.getBooks()
-				.map(book => addBook(book, options, argv))
+				.catch(e => [] as null)
+				.then(books => {
+
+					books.forEach(book => {
+
+						// @ts-ignore
+						book.timestamp = moment(book.book_timestamp).valueOf();
+
+					});
+
+					// @ts-ignore
+					books = books.sort((a, b) => b.timestamp - a.timestamp);
+
+					return books;
+				})
+				.map(book => {
+
+					// @ts-ignore
+					last_updated ??= book.timestamp;
+
+					return addBook(book, options, argv)
+				})
 			;
 
 			feed.books.push(...ls);
@@ -135,9 +154,14 @@ export async function buildOPDSID(options: ITSRequiredPick<ISharedHandlerOptions
 			return feed
 		},
 
-	]);
+		(feed) => {
 
-	return feed
+			feed.updated ||= last_updated || moment().startOf('day');
+
+			return feed
+		},
+
+	]);
 }
 
 export default buildOPDSID

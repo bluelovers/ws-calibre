@@ -8,10 +8,8 @@ import { ITSRequiredPick } from 'ts-type/lib/type/record';
 
 export function buildOPDSIndex(options: ITSRequiredPick<ISharedHandlerOptions, 'dbList'| 'pathWithPrefix' |'siteTitle'>)
 {
-	let { pathWithPrefix, siteTitle } = options;
-
-	let feed = buildSync<Feed>(initMain({
-		title: siteTitle,
+	return buildSync<Feed>(initMain({
+		title: options.siteTitle,
 		subtitle: `Calibre 書庫`,
 		icon: '/favicon.ico',
 	}), [
@@ -27,7 +25,7 @@ export function buildOPDSIndex(options: ITSRequiredPick<ISharedHandlerOptions, '
 						title: `書庫：${row.name}`,
 						links: [
 							{
-								href: pathWithPrefix(row.id, 'opds'),
+								href: options.pathWithPrefix.call(void 0, row.id, 'opds'),
 								title: EnumLinkRel.ALTERNATE,
 								type: EnumMIME.OPDS_CATALOG_FEED_DOCUMENT,
 							} as Link
@@ -40,9 +38,14 @@ export function buildOPDSIndex(options: ITSRequiredPick<ISharedHandlerOptions, '
 			return feed
 		},
 
-	]);
+		(feed) => {
 
-	return feed
+			feed.updated ||= moment().startOf('day');
+
+			return feed
+		},
+
+	]);
 }
 
 export default buildOPDSIndex

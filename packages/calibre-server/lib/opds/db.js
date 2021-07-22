@@ -12,11 +12,10 @@ const v1_1 = require("opds-extra/lib/v1");
 const isBookFile_1 = require("../util/isBookFile");
 const mime_types_2 = require("mime-types");
 function addBook(book, options, argv) {
-    let { pathWithPrefix } = options;
     let links = [];
     book.data.forEach(file => {
         if ((0, isBookFile_1.isBookFile)(file.data_format)) {
-            let href = pathWithPrefix.call(book, argv.dbID, (0, calibre_db_1.getFilePath)(file, book));
+            let href = options.pathWithPrefix.call(book, argv.dbID, (0, calibre_db_1.getFilePath)(file, book));
             links.push({
                 rel: const_1.EnumLinkRel.ACQUISITION,
                 href,
@@ -33,7 +32,7 @@ function addBook(book, options, argv) {
         }
     });
     if (book.book_has_cover) {
-        let href = pathWithPrefix.call(book, argv.dbID, (0, index_2.getCoverPath)(book));
+        let href = options.pathWithPrefix.call(book, argv.dbID, (0, index_2.getCoverPath)(book));
         let type = mime_types_1.default.lookup(href);
         links.push({
             rel: const_1.EnumLinkRel.IMAGE,
@@ -59,15 +58,14 @@ function addBook(book, options, argv) {
 }
 exports.addBook = addBook;
 async function buildOPDSID(options, argv) {
-    let { pathWithPrefix } = options;
-    let db = await options.dbList[argv.dbID].lazyload();
-    let feed = await (0, index_1.buildAsync)((0, index_1.default)({
+    let last_updated;
+    return (0, index_1.buildAsync)((0, index_1.default)({
         title: `書庫：${options.dbList[argv.dbID].name}`,
         subtitle: `書庫：${options.dbList[argv.dbID].name}`,
         icon: '/favicon.ico',
     }), [
         (feed) => {
-            feed.books = feed.books || [];
+            feed.books || (feed.books = []);
             Object.entries(options.dbList)
                 .forEach(([id, row]) => {
                 if (argv.dbID == row.id) {
@@ -77,7 +75,7 @@ async function buildOPDSID(options, argv) {
                     title: `書庫：${row.name}`,
                     links: [
                         {
-                            href: pathWithPrefix(row.id, 'opds'),
+                            href: options.pathWithPrefix.call(void 0, row.id, 'opds'),
                             title: const_1.EnumLinkRel.ALTERNATE,
                             type: const_1.EnumMIME.OPDS_CATALOG_FEED_DOCUMENT,
                         }
@@ -87,14 +85,32 @@ async function buildOPDSID(options, argv) {
             return feed;
         },
         async (feed) => {
-            feed.books = feed.books || [];
+            feed.books || (feed.books = []);
+            let db = await options.dbList[argv.dbID].lazyload();
             let ls = await db.getBooks()
-                .map(book => addBook(book, options, argv));
+                .catch(e => [])
+                .then(books => {
+                books.forEach(book => {
+                    // @ts-ignore
+                    book.timestamp = (0, moment_1.default)(book.book_timestamp).valueOf();
+                });
+                // @ts-ignore
+                books = books.sort((a, b) => b.timestamp - a.timestamp);
+                return books;
+            })
+                .map(book => {
+                // @ts-ignore
+                last_updated !== null && last_updated !== void 0 ? last_updated : (last_updated = book.timestamp);
+                return addBook(book, options, argv);
+            });
             feed.books.push(...ls);
             return feed;
         },
+        (feed) => {
+            feed.updated || (feed.updated = last_updated || (0, moment_1.default)().startOf('day'));
+            return feed;
+        },
     ]);
-    return feed;
 }
 exports.buildOPDSID = buildOPDSID;
 exports.default = buildOPDSID;
