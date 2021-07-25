@@ -1,12 +1,10 @@
-import createDB, { DB } from './DB';
+import { createDB, DB } from './DB';
 import Bluebird from 'bluebird';
+import { IFindLibrarys } from './types';
 
-export function loadLibrary(row: {
-	name: string;
-	_fullpath: string;
-})
+export function loadLibrary(dbEntry: Pick<IFindLibrarys, 'name' | '_fullpath'>)
 {
-	return createDB(row.name, row._fullpath);
+	return createDB(dbEntry.name, dbEntry._fullpath);
 }
 
 export default loadLibrary

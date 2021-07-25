@@ -1,7 +1,5 @@
 import { DB } from './DB';
 import Bluebird from 'bluebird';
-export declare function loadLibrary(row: {
-    name: string;
-    _fullpath: string;
-}): Bluebird<DB>;
+import { IFindLibrarys } from './types';
+export declare function loadLibrary(dbEntry: Pick<IFindLibrarys, 'name' | '_fullpath'>): Bluebird<DB>;
 export default loadLibrary;
