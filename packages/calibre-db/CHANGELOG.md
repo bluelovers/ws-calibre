@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/bluelovers/ws-calibre/compare/calibre-db@1.0.7...calibre-db@1.0.8) (2021-07-25)
+
+
+### ✨　Features
+
+* 自動從上次修正後的日期開始檢查更新 epub 資料 ([6c06cab](https://github.com/bluelovers/ws-calibre/commit/6c06cab355c9f97f7f68c6ed96b2f549fd09d2b0))
+* 更改書籍查詢時預設排序 ([7588d94](https://github.com/bluelovers/ws-calibre/commit/7588d946ed46391a115fd9ab0414c2911c2e1b28))
+
+
+
+
+
 ## [1.0.7](https://github.com/bluelovers/ws-calibre/compare/calibre-db@1.0.6...calibre-db@1.0.7) (2021-07-18)
 
 

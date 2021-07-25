@@ -1,6 +1,6 @@
 {
   "name": "calibre-server",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "create Calibre OPDS service for ePub reader",
   "keywords": [
     "calibre",
@@ -42,7 +42,7 @@
     "address2": "^1.0.4",
     "array-hyper-unique": "^1.1.10",
     "bluebird": "^3.7.2",
-    "calibre-db": "^1.0.7",
+    "calibre-db": "^1.0.8",
     "calibre-env": "^1.0.1",
     "calibre-opds": "^1.0.8",
     "debug-color2": "^1.2.5",

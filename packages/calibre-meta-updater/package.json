@@ -1,6 +1,6 @@
 {
   "name": "calibre-meta-updater",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "homepage": "https://github.com/bluelovers/ws-calibre/tree/master/packages/calibre-meta-updater#readme",
   "bugs": {
@@ -28,7 +28,5 @@
   "dependencies": {
     "cross-spawn-extra": "^2.1.0",
     "tslib": "^2.3.0"
-  },
-  "devDependencies": {},
-  "peerDependencies": {}
+  }
 }
