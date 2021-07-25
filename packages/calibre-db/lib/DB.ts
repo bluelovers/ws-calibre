@@ -118,6 +118,8 @@ export class DB
 			.from('books')
 			//.group('book_title')
 			.where(where, value)
+			.order('book_last_modified', false)
+			.order('book_timestamp', false)
 			.order('book_id', false)
 		;
 

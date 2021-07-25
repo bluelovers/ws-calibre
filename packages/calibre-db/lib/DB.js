@@ -85,6 +85,8 @@ class DB {
             .from('books')
             //.group('book_title')
             .where(where, value)
+            .order('book_last_modified', false)
+            .order('book_timestamp', false)
             .order('book_id', false);
         return this.execute(statement).then(function (books) {
             const collapse = (0, compose_1.default)((0, propertiesCollapser_1.default)(books, 'tags', /^tag_/), (0, propertiesCollapser_1.default)(books, 'authors', /^author_/), (0, propertiesCollapser_1.default)(books, 'series', /^series_/), (0, propertiesCollapser_1.default)(books, 'data', /^data_/));
